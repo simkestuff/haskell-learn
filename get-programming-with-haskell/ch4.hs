@@ -30,3 +30,41 @@ compareLastNames name1 name2 = if lastName1 > lastName2
           firstName2 = fst name2
 
 
+compareLastNames2 name1 name2 = case lastNameCompare of
+    EQ -> firstNameCompare
+    _  -> lastNameCompare
+    where firstNameCompare = compare (fst name1) (fst name2)
+          lastNameCompare = compare (snd name1) (snd name2)
+
+
+compareLastNames3 name1 name2 = let firstNameCompare = compare (fst name1) (fst name2)
+                                    lastNameCompare = compare (snd name1) (snd name2)
+                                in
+                                  case lastNameCompare of
+                                    EQ -> firstNameCompare
+                                    _  -> lastNameCompare
+
+getLocationFunction location = case location of
+    "ny" -> nyOffice
+    "sf" -> sfOffice
+    "reno" -> renoOffice
+    "w" -> wOffice
+    _    -> (\name -> fst name ++ " " ++ snd name)
+
+sfOffice name = if lastName < "L"
+                then nameText ++ " - PO Box 1234 - San Francisco, CA, 94111"
+                else nameText ++ " - PO Box 1010 - San Francisco, CA, 94109"
+    where lastName = snd name
+          nameText = (fst name) ++ " " ++ lastName
+
+nyOffice name = nameText ++ ": PO Box 789 - New York, NY, 10013"
+    where nameText = (fst name) ++ " " ++ (snd name)
+
+renoOffice name = nameText ++ " - PO Box 456 - Reno, NV 89523"
+    where nameText = snd name
+
+wOffice name = let nameText = (fst name) ++ " " ++ (snd name) 
+               in
+                 nameText ++  " Esq" ++ " - PO BOX 999 - Washington, WA 666"
+
+addressLetter name location = getLocationFunction location name
