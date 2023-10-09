@@ -12,3 +12,8 @@ largestCharNum = fromEnum (maxBound :: Char)
 rotChar :: Char -> Char
 rotChar charToEncrypt = rotN sizeOfAlphabet charToEncrypt
     where sizeOfAlphabet = largestCharNum + 1
+
+fourLetterAlphabetEncoder :: [FourLetterAlphabet] -> [FourLetterAlphabet]
+fourLetterAlphabetEncoder vals = map rot4l vals
+    where rot4l = rotN alphaSize
+          alphaSize = 1 + fromEnum (maxBound :: FourLetterAlphabet)
